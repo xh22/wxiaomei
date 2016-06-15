@@ -1,15 +1,35 @@
-from flask import Blueprint, render_template, abort
+import os
+
+from flask import Blueprint, render_template, abort, session
 from jinja2 import TemplateNotFound
+
 from main import app
 
 index_page = Blueprint('index_page', __name__,
-                        template_folder='templates')
+                        template_folder='templates',
+                      )
 
-@index_page.route('/', defaults={'page': 'index'})
-@index_page.route('/<page>')
-def show(page):
+@index_page.route('/')
+def index():
     try:
-        return render_template('pages/%s.html' % page)
+        if session.get('logged_in', None):
+            return render_template('index.html')
+        else:
+            return render_template('login.html')
+    except TemplateNotFound:
+        abort(404)
+
+@index_page.route('/login')
+def login():
+    try:
+        return render_template('login.html')
+    except TemplateNotFound:
+        abort(404)
+
+@index_page.route('/regist')
+def regist():
+    try:
+        return render_template('regist.html')
     except TemplateNotFound:
         abort(404)
 

@@ -1,0 +1,25 @@
+# -*- coding: utf-8 -*-
+import os
+
+from flask import session, render_template, request, redirect
+from flask.views import MethodView
+
+from main import app, db
+
+class Login(MethodView):
+
+    def post(self):
+
+        cur = db.connection.cursor()
+        cur.execute("""select password from user_info where name="{}";""".format(request.form['name']))
+        psw = cur.fetchone()
+        if not psw:
+            error = u'没有此用户'
+        elif request.form['password'] != psw[0]:
+            error = u'密码错误'
+        else:
+            session['logged_in'] = True
+        return redirect('/')            
+
+
+app.add_url_rule('/login', view_func=Login.as_view('login'))

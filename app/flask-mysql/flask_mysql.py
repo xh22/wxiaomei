@@ -10,7 +10,7 @@ except ImportError:
     from flask import _request_ctx_stack as stack
 
 
-class SQLite3(object):
+class Mysql(object):
 
     def __init__(self, app=None):
         self.app = app
@@ -26,17 +26,17 @@ class SQLite3(object):
             app.teardown_request(self.teardown)
 
     def connect(self):
-        return MySQLdb.connect(host='localhost', user='root', passwd='root', db='test', port=3306)
+        return MySQLdb.connect(host='localhost', user='root', passwd='', db='users', port=3306)
 
     def teardown(self, exception):
         ctx = stack.top
-        if hasattr(ctx, 'sqlite3_db'):
-            ctx.sqlite3_db.close()
+        if hasattr(ctx, 'mysql_db'):
+            ctx.mysql_db.close()
 
     @property
     def connection(self):
         ctx = stack.top
         if ctx is not None:
-            if not hasattr(ctx, 'sqlite3_db'):
-                ctx.sqlite3_db = self.connect()
-            return ctx.sqlite3_db
+            if not hasattr(ctx, 'mysql_db'):
+                ctx.mysql_db = self.connect()
+            return ctx.mysql_db

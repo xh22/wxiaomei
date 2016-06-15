@@ -1,0 +1,15 @@
+<!doctype html>
+<title>Flaskr</title>
+<link rel=stylesheet type=text/css href="static/style.css">
+<div class=page>
+  <h1>吴小妹的工作室</h1>
+  <div class=metanav>
+  {% if not session.logged_in %}
+    <a href="{{ url_for('login') }}">登入</a>
+  {% else %}
+    <a href="{{ url_for('logout') }}">登出</a>
+  {% endif %}
+  <a href="{{ url_for('regist') }}">注册用户</a>
+  </div>
+  {% block body %}{% endblock %}
+</div>

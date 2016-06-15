@@ -1,13 +1,13 @@
 Metadata-Version: 1.1
-Name: Flask-SQLite3
+Name: Flask-mysql
 Version: 1.0
 Summary: Very short description
-Home-page: http://example.com/flask-sqlite3/
+Home-page: http://example.com/flask-mysql/
 Author: Your Name
 Author-email: your-email@example.com
 License: BSD
 Description: 
-        Flask-SQLite3
+        Flask-mysql
         -------------
         
         This is the description for that library
