@@ -1,0 +1,70 @@
+{% extends "layout.html" %}
+{% block body %}
+        <!-- Blog Section -->
+        <section id="blog" class="wow fadeIn ptb ptb-sm-80">
+            <div class="container">
+                <h3 class="float-left float-none-xs">Latest Blog</h3>
+                <a class="btn-link-a float-right float-none-xs">View All</a>
+                <div class="clearfix"></div>
+                <div class="spacer-60"></div>
+                <div class="row">
+
+                    <div class="col-lg-4 col-md-6 col-sm-6 mb-sm-30">
+                        <div class="blog-post">
+                            <div class="post-media">
+                                <video class="video" style="width: 100%;" width="" height="" preload="auto" poster="media/echo-hereweare.jpg" controls="controls">
+                                    <!-- MP4 source must come first for iOS -->
+                                    <source type="video/mp4" src="media/video1.mp4" />
+                                    <!-- WebM for Firefox 4 and Opera -->
+                                    <source type="video/webm" src="media/video1.webm" />
+                                    <!-- OGG for Firefox 3 -->
+                                    <source type="video/ogg" src="media/video1.ogv" />
+                                </video>
+                            </div>
+                            <div class="post-meta"><span>by <a>John Doe</a>,</span> <span>Mar 16, 2015</span></div>
+                            <div class="post-header">
+                                <h5><a href="">Maecenas nec odio ante varcy</a></h5>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4 col-md-6 col-sm-6 mb-sm-30">
+                        <div class="blog-post">
+                            <div class="post-media">
+                                <div class="owl-carousel item1-carousel nf-carousel-theme">
+                                    <div class="item">
+                                        <img src="static/img/full/26.jpg" alt="" />
+                                    </div>
+                                    <div class="item">
+                                        <img src="static/img/full/04.jpg" alt="" />
+                                    </div>
+                                    <div class="item">
+                                        <img src="static/img/full/27.jpg" alt="" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="post-meta"><span>by <a>John Doe</a>,</span> <span>Feb 24, 2015</span></div>
+                            <div class="post-header">
+                                <h5><a href="">onec pede justo, fringilla vel</a></h5>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4 col-md-6 col-sm-6 mb-sm-30">
+                        <div class="blog-post">
+                            <div class="post-media">
+                                <img class="item-container" src="static/img/full/20.jpg" alt="" />
+                            </div>
+                            <div class="post-meta"><span>by <a>John Doe</a>,</span> <span>Jan 29, 2015</span></div>
+                            <div class="post-header">
+                                <h5><a href="">Augue velit cursus nunc</a></h5>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+        <!-- End Blog Section -->
+
+{% endblock %}
