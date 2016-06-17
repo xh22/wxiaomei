@@ -12,10 +12,7 @@ index_page = Blueprint('index_page', __name__,
 @index_page.route('/')
 def index():
     try:
-        if session.get('logged_in', None):
-            return render_template('index.html')
-        else:
-            return render_template('login.html')
+        return render_template('index.html')
     except TemplateNotFound:
         abort(404)
 
@@ -23,13 +20,6 @@ def index():
 def login():
     try:
         return render_template('login.html')
-    except TemplateNotFound:
-        abort(404)
-
-@index_page.route('/regist')
-def regist():
-    try:
-        return render_template('regist.html')
     except TemplateNotFound:
         abort(404)
 
