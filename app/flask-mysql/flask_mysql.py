@@ -26,7 +26,7 @@ class Mysql(object):
             app.teardown_request(self.teardown)
 
     def connect(self):
-        return MySQLdb.connect(host='localhost', user='root', passwd='', db='users', port=3306)
+        return MySQLdb.connect(host='localhost', user='root', passwd='qaz123', db='users', port=3306)
 
     def teardown(self, exception):
         ctx = stack.top
