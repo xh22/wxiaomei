@@ -5,7 +5,7 @@ from contextlib import closing
 from main import app
 
 def connect_db():
-    return MySQLdb.connect(host='localhost', user='root', passwd='', db='users', port=3306)
+    return MySQLdb.connect(host='localhost', user='root', passwd='qaz123', db='users', port=3306)
 
 def init_db():
     with closing(connect_db()) as db:

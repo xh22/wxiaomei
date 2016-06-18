@@ -5,7 +5,7 @@ CREATE TABLE `subscribe_calendar` (
   `type` smallint(11) NOT NULL,
   `email` char(20) NOT NULL DEFAULT '',
   `title` char(20) DEFAULT NULL,
-  `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `create_time` TIMESTAMP  NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -23,6 +23,6 @@ CREATE TABLE `user_info` (
   `address` char(50) DEFAULT NULL,
   `password` char(20) NOT NULL DEFAULT '',
   `email` char(20) DEFAULT '',
-  `create_time` datetime NOT NULL DEFAULT NOW(),
+  `create_time` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8;
