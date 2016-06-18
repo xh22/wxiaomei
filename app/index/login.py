@@ -9,9 +9,8 @@ from main import app, db
 class Login(MethodView):
 
     def post(self):
-
         cur = db.connection.cursor()
-        cur.execute("""select password from user_info where name="{}";""".format(request.form['name']))
+        cur.execute("""select password from user_info where email="{}";""".format(request.form['email']))
         psw = cur.fetchone()
         if not psw:
             error = u'没有此用户'
@@ -19,6 +18,7 @@ class Login(MethodView):
             error = u'密码错误'
         else:
             session['logged_in'] = True
+            session['email'] = request.form['email']
         return redirect('/')            
 
 

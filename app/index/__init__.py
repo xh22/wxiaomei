@@ -1,3 +1,3 @@
 import index.views
 import index.regist
-import index.login, index.logout
+import index.login, index.logout,index.subscribe
