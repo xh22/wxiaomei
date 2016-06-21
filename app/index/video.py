@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import os
 
-from flask import session, render_template, request, redirect
+from flask import session, render_template, request, redirect, Response
 from flask.views import MethodView
 
 from main import app, db
@@ -16,7 +16,7 @@ class VideoCamera(object):
         #self.video = cv2.VideoCapture(0)
         # If you decide to use video.mp4, you must have this file in the folder
         # as the main.py.
-        self.video = cv2.VideoCapture('static/video/video{}.mp4'.format(index))
+        self.video = cv2.VideoCapture('main/static/video/video{}.mp4'.format(index))
     
     def __del__(self):
         self.video.release()
@@ -26,20 +26,21 @@ class VideoCamera(object):
         # We are using Motion JPEG, but OpenCV defaults to capture raw images,
         # so we must encode it into JPEG in order to correctly display the
         # video stream.
-        print type(image)
         ret, jpeg = cv2.imencode('.jpg', image)
         return jpeg.tostring()
 
+@app.route('/news')
+def news():
+    return render_template('news.html')
 
-class Video(MethodView):
+def gen(camera):
+    while True:
+        frame = camera.get_frame()
+        yield (b'--frame\r\n'
+               b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n\r\n')
 
-    def gen(camera):
-        while True:
-            frame = camera.get_frame()
-            yield (b'--frame\r\n'
-                   b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n\r\n')
+@app.route('/video_feed/<int:index>')
+def video_feed(index):
+    return Response(gen(VideoCamera(index)),
+                    mimetype='multipart/x-mixed-replace; boundary=frame')
 
-    def get(self, index):
-        return Response(gen(VideoCamera(index)), mimetype='multipart/x-mixed-replace; boundary=frame')
-
-app.add_url_rule('/video/<int:typer>', view_func=Video.as_view('video'))

@@ -6,4 +6,4 @@ app = application
 app.permanent_session_lifetime = timedelta(minutes=60)
 
 if __name__ == '__main__':
-    app.run(debug=True, use_reloader=True)
+    app.run(host="120.25.171.88",debug=True, use_reloader=True)
