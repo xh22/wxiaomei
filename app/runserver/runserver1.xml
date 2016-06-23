@@ -1,0 +1,7 @@
+<uwsgi>
+<http-socket>127.0.0.1:5555</http-socket>
+<pythonpath>/root/wxiaomei/app/</pythonpath>
+<module>runserver</module>
+<processes>1</processes>
+<threads>10</threads>
+</uwsgi>

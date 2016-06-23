@@ -376,6 +376,9 @@
     <script src='/static/js/fullcalendar.min.js'></script>
 
     <script type="text/javascript">
+		$(window).load(function() { 
+			$(".myvideo").attr("src", "/video_feed/1");
+		}); 
 		$(document).ready(function() {
 			$('#calendar').fullCalendar({
 				header: {
