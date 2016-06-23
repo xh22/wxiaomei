@@ -20,7 +20,10 @@ class Login(MethodView):
             session['logged_in'] = True
             session['email'] = request.form['email']
             session['name'] = psw[0]
-        return redirect('/')            
+        if request.form['email'] == app.config["ADMIN_EMAIL"]:
+            return redirect("/admin")
+        else:
+            return redirect('/')            
 
 
 app.add_url_rule('/login', view_func=Login.as_view('login'))

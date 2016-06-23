@@ -8,8 +8,6 @@ def page_not_found(error):
 
 @app.before_request
 def before_request():
-    pass
-#    if '/static' not in request.path:
-#        if request.path not in ['/', '/login', '/regist', 'logout']:
-#            if not session.get('logged_in', None):
-#                return redirect('/')
+    if request.path.startswith("/admin"):
+        if session.get('email', None) != app.config['ADMIN_EMAIL']:
+            return redirect('/')

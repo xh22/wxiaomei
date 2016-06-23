@@ -5,6 +5,7 @@ from flask.ext.session import Session
 
 app = application
 SESSION_TYPE = 'redis'
+ADMIN_EMAIL = 'admin@qq.com'
 PERMANENT_SESSION_LIFETIME = timedelta(minutes=60)
 app.config.from_object(__name__)
 Session(app)

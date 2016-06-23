@@ -16,6 +16,7 @@ class Regist(MethodView):
         db.connection.commit()
         session['logged_in'] = True
         session['email'] = request.form['email']
+        session['name'] = request.form['name']
         return redirect('/')
 
 app.add_url_rule('/regist', view_func=Regist.as_view('regist'))

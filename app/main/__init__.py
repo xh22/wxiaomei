@@ -8,4 +8,4 @@ app.secret_key = os.urandom(24)
 
 db = Mysql(app)
 
-import main.views
+import views
