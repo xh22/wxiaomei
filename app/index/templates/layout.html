@@ -382,15 +382,15 @@
 			$(".myvideo").attr("src", "/video_feed/1");
 		}); 
 		$(document).ready(function() {
-			jwplayer("container").setup({  
-        flashplayer: "/static/plugin/player.flash.swf",  
-        file: "/static/video/video1.mp4",  
-        height: 622,  
+            jwplayer("container").setup({  
+                flashplayer: "/static/plugin/player.flash.swf",  
+                file: "/static/video/video1.mp4",  
+                height: 622,  
                 width:1104,  
                 stretching : 'fill',  
                 streamer:"start",  
                 provider:"http",  
-});  
+            });  
 			$('#calendar').fullCalendar({
                 minTime: '09:00:00', // a start time (10am in this example)
                 maxTime: '20:00:00', // an end time (6pm in this example)

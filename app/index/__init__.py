@@ -1,1 +1,1 @@
-import views, regist, login, logout, subscribe, video
+import views, regist, login, logout, subscribe
