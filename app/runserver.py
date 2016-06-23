@@ -12,4 +12,4 @@ Session(app)
 #app.permanent_session_lifetime = timedelta(minutes=60)
 
 if __name__ == '__main__':
-    app.run(host="120.25.171.88", port=8000, debug=True, use_reloader=True)
+    app.run(debug=True, use_reloader=True)

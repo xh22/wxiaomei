@@ -374,6 +374,7 @@
 
     <script src='/static/js/moment.min.js'></script>
     <script src='/static/js/fullcalendar.min.js'></script>
+    <script src='/static/js/zh-cn.js'></script>
 
     <script type="text/javascript">
 		$(window).load(function() { 
@@ -381,21 +382,26 @@
 		}); 
 		$(document).ready(function() {
 			$('#calendar').fullCalendar({
+                minTime: '09:00:00', // a start time (10am in this example)
+                maxTime: '20:00:00', // an end time (6pm in this example)
+                slotDuration: "00:20:00",
+                allDaySlot: false,
+                lang: 'zh-cn',
 				header: {
 					left: 'prev,next today',
 					center: 'title',
-					right: 'agendaDay,agendaWeek,month'
+					//right: 'agendaDay,agendaWeek,month',
+					right: 'agendaDay'
 				},
                 timezone: 'UTC',
                 defaultView:'agendaDay',
 				selectable: true,
 				selectHelper: true,
 				select: function(start, end) {
-					var title = prompt('请留言:');
+					var title = confirm("是否预约此时间段?");
 					var eventData;
 					if (title) {
 						eventData = {
-							title: title,
 							start: start,
 							end: end
 						};
@@ -406,7 +412,6 @@
                                 // our hypothetical feed requires UNIX timestamps
                                 start: start.unix(),
                                 end: end.unix(),
-                                title: title
                             },
                             success:function(msg) {  
 						        $('#calendar').fullCalendar('renderEvent', eventData, true); // stick? = true

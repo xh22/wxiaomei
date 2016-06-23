@@ -25,23 +25,25 @@ class Subscribe_calendar(MethodView):
         cur = db.connection.cursor()
         cur.execute("""insert into subscribe_calendar(email, start, end, title, type)
             values("{}", "{}", "{}", "{}", "{}");""".format(session['email'], request.form['start'],
-            request.form['end'], request.form['title'].encode("utf-8"), session['subscribe_type']))
+            request.form['end'], session['name'], session['subscribe_type']))
         db.connection.commit()
         return json.dumps({"success": True}) 
+            
 
 class Subscribe_login(MethodView):
 
     def post(self):
         cur = db.connection.cursor()
-        cur.execute("""select password from user_info where email="{}";""".format(request.form['email']))
+        cur.execute("""select name,password from user_info where email="{}";""".format(request.form['email']))
         psw = cur.fetchone()
         if not psw:
             error = u'没有此用户'
-        elif request.form['password'] != psw[0]:
+        elif request.form['password'] != psw[1]:
             error = u'密码错误'
         else:
             session['logged_in'] = True
             session['email'] = request.form['email']
+            session['name'] = psw[0]
         return redirect('/subscribe/1')            
 
 app.add_url_rule('/subscribe/login', view_func=Subscribe_login.as_view('subscribe_login'))
