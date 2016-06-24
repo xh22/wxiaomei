@@ -17,6 +17,18 @@ def index(page):
     except TemplateNotFound:
         abort(404)
 
+@index_page.route('/news')
+def news():
+    videos = os.listdir(os.path.join(app.root_path, 'static/video'))
+    return render_template('news.html', videos=videos)
+        
+@index_page.route('/work')
+def work():
+    imgs0 = os.listdir(os.path.join(app.root_path, 'static/img/portfolio/0'))
+    imgs1 = os.listdir(os.path.join(app.root_path, 'static/img/portfolio/1'))
+    imgs2 = os.listdir(os.path.join(app.root_path, 'static/img/portfolio/2'))
+    imgs3 = os.listdir(os.path.join(app.root_path, 'static/img/portfolio/3'))
+    return render_template('work.html', imgs=[imgs0, imgs1, imgs2, imgs3], enumerate=enumerate)
 
 @index_page.route('/subscribe/<int:page>')
 def subscribe(page):

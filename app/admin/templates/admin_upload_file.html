@@ -1,0 +1,44 @@
+{% extends "admin.html" %}
+
+{% block title %}Index{% endblock title %}
+
+{% block body %}
+<section class="inner-intro">
+    <div class="container">
+        <div class="row title">
+        {% with flashes = get_flashed_messages() %}
+        {% if flashes %}
+            {% for f in flashes %}
+            <h6 class="h2">{{ f }}</h6>
+            {% endfor %}
+        {% endif %}
+        {% endwith %}
+        <div class="panel panel-info">
+        <div class="panel-body">
+            <form action="{{ url_for('upload_file') }}" method=POST enctype=multipart/form-data>
+                <div>
+                <input type="file" class="btn btn-md btn-color-b" name="photo" data-filename-placement="inside" title="选择图片"/>
+                </div>
+                <div>
+                <input type="submit" class="btn btn-md btn-color-b" value="POST" />
+                </div>
+            </form>
+        </div>
+        </div>
+        <div class="panel panel-success">
+        <div class="panel-body">
+            <form action="{{ url_for('upload_file') }}" method=POST enctype=multipart/form-data>
+                <div>
+                <input type="file" class="btn btn-md btn-color-r" name="video" data-filename-placement="inside" title="选择视频"/>
+                </div>
+                <div>
+                <input type="submit" class="btn btn-md btn-color-b" value="POST" />
+                </div>
+            </form>
+        </div>
+        </div>
+        </div>
+    </div>
+</section>
+
+{% endblock body %}

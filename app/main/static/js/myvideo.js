@@ -1,7 +1,8 @@
 $(document).ready(function() {
-    jwplayer("container").setup({  
+    $(".myvideo").each(function(){
+    jwplayer($(this).attr("id")).setup({  
         flashplayer: "/static/plugin/player.flash.swf",  
-        file: "/static/video/video1.mp4",  
+        file: "/static/video/"+$(this).attr("id"),  
         image:"static/img/full/26.jpg",
         height: 197,  
         width:350,  
@@ -9,4 +10,5 @@ $(document).ready(function() {
         streamer:"start",  
         provider:"http",  
     });  
+    });
 });  

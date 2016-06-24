@@ -1,8 +1,7 @@
 # -*- coding: utf-8 -*-
-from . import cache
-import cv2
+import cv2, os, weakref
 
-import weakref
+from . import cache
 
 class VideoCamera():
 
@@ -15,7 +14,7 @@ class VideoCamera():
         #self.video = cv2.VideoCapture(0)
         # If you decide to use video.mp4, you must have this file in the folder
         # as the main.py.
-        self.seed = cv2.VideoCapture('main/static/video/video{}.mp4'.format(index))
+        self.seed = cv2.VideoCapture(os.path.join(app.root_path, 'main/static/video/video{}.mp4'.format(index)))
         self.video = []
         while True:
             success, image = self.seed.read()

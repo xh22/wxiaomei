@@ -12,10 +12,11 @@
                 <div class="spacer-60"></div>
                 <div class="row">
 
+                {% for i in videos %}
                     <div class="col-lg-4 col-md-6 col-sm-6 mb-sm-30">
                         <div class="blog-post">
 				            <div class="post-media">
-                                <div id="container">
+                                <div class="myvideo" id="{{ i }}">
                                     Loading the player ...
                                 </div>  
                             </div>  
@@ -25,30 +26,8 @@
                             </div>
                         </div>
                     </div>
+                {% endfor %}
 
-                    <div class="col-lg-4 col-md-6 col-sm-6 mb-sm-30">
-                        <div class="blog-post">
-                            <div class="post-media">
-                                <img class="myvideo" style="width: 100%;" width="" height="" src="static/img/full/26.jpg">
-                            </div>
-                            <div class="post-meta"><span>by <a>John Doe</a>,</span> <span>Mar 16, 2015</span></div>
-                            <div class="post-header">
-                                <h5><a href="">Maecenas nec odio ante varcy</a></h5>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-lg-4 col-md-6 col-sm-6 mb-sm-30">
-                        <div class="blog-post">
-                            <div class="post-media">
-                                <img class="myvideo" style="width: 100%;" width="" height="" src="static/img/full/26.jpg">
-                            </div>
-                            <div class="post-meta"><span>by <a>John Doe</a>,</span> <span>Mar 16, 2015</span></div>
-                            <div class="post-header">
-                                <h5><a href="">Maecenas nec odio ante varcy</a></h5>
-                            </div>
-                        </div>
-                    </div>
 
                     <div class="col-lg-4 col-md-6 col-sm-6 mb-sm-30">
                         <div class="blog-post">

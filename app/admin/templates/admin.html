@@ -279,25 +279,13 @@
                 <div class="nav-menu">
                     <ul class="nav-menu-inner">
                         <li>
-                            <a class="" href="/">主页</a>
+                            <a class="" href="/admin">主页</a>
                         </li>
                         <li>
-                            <a class="" href="/about">关于我们</a>
+                            <a class="" href="/admin/subscribe/1">在线预约</a>
                         </li>
                         <li>
-                            <a class="" href="/work">作品</a>
-                        </li>
-                        <li>
-                            <a class="" href="/service">服务项目</a>
-                        </li>
-                        <li>
-                            <a class="" href="/news">最新动态</a>
-                        </li>
-                        <li>
-                            <a class="" href="/subscribe/1">在线预约</a>
-                        </li>
-                        <li>
-                            <a class="" href="/contact">联系我们</a>
+                            <a class="" href="/admin/upload_file">上传文件</a>
                         </li>
                     </ul>
                 </div>
@@ -371,6 +359,7 @@
     <script src='/static/js/moment.min.js'></script>
     <script src='/static/js/fullcalendar.min.js'></script>
     <script src='/static/js/zh-cn.js'></script>
+    <script src='/static/js/bootstrap.file-input.js'></script>
 
     <script type="text/javascript">
 		$(document).ready(function() {
@@ -383,8 +372,8 @@
 				header: {
 					left: 'prev,next today',
 					center: 'title',
-					//right: 'agendaDay,agendaWeek,month',
-					right: 'agendaDay'
+					right: 'agendaDay,agendaWeek,month',
+					//right: 'agendaDay'
 				},
                 timezone: 'UTC',
                 defaultView:'agendaDay',
