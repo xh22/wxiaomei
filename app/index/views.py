@@ -19,8 +19,8 @@ def index(page):
 
 @index_page.route('/news')
 def news():
-    videos = map(lambda x: x.split("."), os.listdir(os.path.join(app.root_path, 'static/video')))	
-    print videos
+    videos = map(lambda x: x[2], os.walk(os.path.join(app.root_path, 'static/video')))	
+    videos = map(lambda x: x.split("."), videos[0])
     return render_template('news.html', videos=videos)
         
 @index_page.route('/work')
