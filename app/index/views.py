@@ -23,6 +23,10 @@ def news():
     videos = map(lambda x: x.split("."), videos[0])
     return render_template('news.html', videos=videos)
         
+@index_page.route('/videos/<string:ids>/<string:types>')
+def videos(ids, types):
+    return render_template('video.html', ids=ids, types=types)
+
 @index_page.route('/work')
 def work():
     imgs0 = os.listdir(os.path.join(app.root_path, 'static/img/portfolio/0'))

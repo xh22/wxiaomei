@@ -1,34 +1,33 @@
-{% extends "layout.html" %}
+﻿{% extends "layout.html" %}
 {% block body %}
-        <link href="http://vjs.zencdn.net/5.0.2/video-js.css" rel="stylesheet">
-        <script src="http://vjs.zencdn.net/ie8/1.1.0/videojs-ie8.min.js"></script>
-        <script src="http://vjs.zencdn.net/5.0.2/video.js"></script>
-
-        <!-- Blog Section -->
-        <section id="blog" class="wow fadeIn ptb ptb-sm-80">
+        
+        <!-- Work Section -->
+        <section class="ptb ptb-sm-80">
             <div class="container">
-                <h3 class="float-left float-none-xs">Latest Blog</h3>
-                <a class="btn-link-a float-right float-none-xs">View All</a>
-                <div class="clearfix"></div>
-                <div class="row">
-                </div>
-            </div>
+                <h3 class="h4">About Studio</h3>
+                <!-- work Filter -->
+                <div class="row container-masonry nf-col-3">
 
             {% for i in videos %}
-                <div class="container">
-                    <div class="blog-post text-center">
-                        <video id="example_video_1" class="video-js vjs-default-skin center-block" controls preload="none" width="640" height="264" poster="http://vjs.zencdn.net/v/oceans.png" data-setup="{}">
-                            <source src="static/video/{{i[0]}}.{{i[1]}}" type="video/{{i[1]}}">
-                            <p class="vjs-no-js">To view this video please enable JavaScript, and consider upgrading to a web browser that <a href="http://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a></p>
-                        </video>
-
-                        <div class="post-meta"><span>by <a>John Doe</a>,</span> <span>Mar 16, 2015</span></div>
-                        <div class="post-header">
-                            <h5><a href="">Maecenas nec odio ante varcy</a></h5>
+                    <div class="nf-item spacing">
+                        <div class="item-box">
+                            <a href="/videos/{{ i[0] }}/{{ i[1] }}">
+                                <img alt="1" src="/static/img/portfolio/0/33.jpg" class="item-container">
+                                <div class="item-mask">
+                                    <div class="item-caption">
+                                        <h5 class="white">Consequat massa quis</h5>
+                                        <p class="white">Branding, Design</p>
+                                    </div>
+                                </div>
+                            </a>
                         </div>
                     </div>
-                </div>
             {% endfor %}
-        <section>
 
+                </div>
+
+            </div>
+
+        </section>
+        <!-- End Work Section -->
 {% endblock %}
