@@ -23,6 +23,9 @@ class Uplaod_file(MethodView):
             except UploadNotAllowed:
                 flash(u"上传失败!")
             else:
+                if filename != request.files['photo'].filename:
+                    os.system("mv '{0}''{1}' '{0}''{2}'".format(
+                        app.config["UPLOADED_PHOTOS_DEST"], filename, request.files['photo'].filename))
                 flash(u"上传成功!")
         elif 'video' in request.files:
             try:
