@@ -27,10 +27,10 @@ class Uplaod_file(MethodView):
         elif 'video' in request.files:
             try:
                 filename = videos.save(request.files['video'])
-                os.system("unzip '{0}''{1}' -d '{0}'".format(
-                    os.path.join(app.root_path, 'static/video/'), filename))
+                os.system("unzip -o '{0}''{1}' -d '{0}'".format(
+                    app.config["UPLOADED_VIDEOS_DEST"], filename))
                 os.system("rm '{0}''{1}'".format(
-                    os.path.join(app.root_path, 'static/video/'), filename))
+                    app.config["UPLOADED_VIDEOS_DEST"], filename))
             except UploadNotAllowed:
                 flash(u"上传失败!")
             else:
