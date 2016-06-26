@@ -4,7 +4,7 @@ import os
 from flask.views import MethodView
 from flask import session, render_template, request, redirect, flash
 
-from flaskext.uploads import (UploadSet, configure_uploads, IMAGES, ARCHIVES,
+from flaskext.uploads import (UploadSet, configure_uploads, IMAGES, AUDIO,
                               UploadNotAllowed)
 
 from main import app
@@ -12,7 +12,7 @@ from main import app
 photos = UploadSet('photos', IMAGES)
 configure_uploads(app, photos)
 
-videos = UploadSet('videos', ARCHIVES)
+videos = UploadSet('videos', AUDIO)
 configure_uploads(app, videos)
 
 class Uplaod_file(MethodView):
@@ -30,13 +30,12 @@ class Uplaod_file(MethodView):
         elif 'video' in request.files:
             try:
                 filename = videos.save(request.files['video'])
-                os.system("unzip -o '{0}''{1}' -d '{0}'".format(
-                    app.config["UPLOADED_VIDEOS_DEST"], filename))
-                os.system("rm '{0}''{1}'".format(
-                    app.config["UPLOADED_VIDEOS_DEST"], filename))
             except UploadNotAllowed:
                 flash(u"上传失败!")
             else:
+                if filename != request.files['video'].filename:
+                    os.system("mv '{0}''{1}' '{0}''{2}'".format(
+                        app.config["UPLOADED_VIDEOS_DEST"], filename, request.files['video'].filename))
                 flash(u"上传成功!")
         return redirect('/admin/upload_file')
 
