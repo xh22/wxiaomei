@@ -10,9 +10,9 @@
                     <ul class="container-filter categories-filter mb-0">
                         <li><a class="categories active" data-filter="*">All</a></li>
                         <li><a class="categories" data-filter=".branding">Branding</a></li>
-                        <li><a class="categories" data-filter=".design">Design</a></li>
+                        <li><a class="categories" data-filter=".cert">证件照</a></li>
                         <li><a class="categories" data-filter=".photo">Photo</a></li>
-                        <li><a class="categories" data-filter=".coffee">coffee</a></li>
+                        <li><a class="categories" data-filter=".port">写真照</a></li>
                     </ul>
                 </div>
             </div>
@@ -21,9 +21,9 @@
                     {% for i,j in enumerate(imgs) %}
                         {% for k in j %}
                             {% if i==0 %}
-                            <div class="nf-item design spacing">
+                            <div class="nf-item cert spacing">
                             {% elif i==1 %}
-                            <div class="nf-item coffee spacing">
+                            <div class="nf-item port spacing">
                             {% elif i==2 %}
                             <div class="nf-item branding spacing">
                             {% else %}

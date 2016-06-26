@@ -8,7 +8,8 @@ from flask.ext.session import Session
 app = Flask(__name__)
 SESSION_TYPE = 'redis'
 ADMIN_EMAIL = 'admin@qq.com'
-UPLOADED_PHOTOS_DEST = os.path.join(app.root_path, 'static/img/')
+UPLOADED_PHOTOSCERT_DEST = os.path.join(app.root_path, 'static/img/portfolio/0/')
+UPLOADED_PHOTOSPORT_DEST = os.path.join(app.root_path, 'static/img/portfolio/1/')
 UPLOADED_VIDEOS_DEST = os.path.join(app.root_path, 'static/video/')
 PERMANENT_SESSION_LIFETIME = timedelta(minutes=60)
 
