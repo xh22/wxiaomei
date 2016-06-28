@@ -14,7 +14,8 @@ class Admin_user_subscribe(MethodView):
         cur = db.connection.cursor()
         cur.execute("""select title, email, type, FROM_UNIXTIME(start, '%Y-%m-%d--%T' ), 
                        FROM_UNIXTIME(end, '%Y-%m-%d--%T' ),
-                       create_time from subscribe_calendar limit {}, {}""".format(start, length))
+                       create_time from subscribe_calendar order by create_time desc
+                       limit {}, {}""".format(start, length))
         info = cur.fetchall()
         info = [[str(j) for j in i] for i in info]
         return json.dumps({"data": info})
