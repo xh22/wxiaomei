@@ -30,8 +30,8 @@ class Regist_done(MethodView):
         token = request.args["token"]
         try:
             form = auth_token.Auth_token.verify_auth_token(token)
-        except DecodeError:
-            flash(u"注册信息已过期!")
+        except DecodeError as e:
+            flash(u"注册失败")
             return redirect('/regist')
         if form:
             cur = db.connection.cursor()
