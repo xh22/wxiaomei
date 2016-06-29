@@ -1,21 +1,18 @@
 from main import app
 
-from itsdangerous import TimedJSONWebSignatureSerializer as Serializer, SignatureExpired, BadSignature
+import jwt
 
 class Auth_token():
 
     @staticmethod
-    def generate_auth_token(info, expiration = 6000):
-        s = Serializer(app.config['SECRET_KEY'], expires_in = expiration)
-        return s.dumps(info)
+    def generate_auth_token(info):
+        print info
+        print type(info)
+        info = dict(info)
+        token = jwt.encode(info, app.config['SECRET_KEY'], algorithm='HS256')
+        return token 
 
     @staticmethod
     def verify_auth_token(token):
-        s = Serializer(app.config['SECRET_KEY'])
-        try:
-            data = s.loads(token)
-        except SignatureExpired:
-            return None # valid token, but expired
-        except BadSignature:
-            return None # invalid token
+        data = jwt.decode(token, app.config['SECRET_KEY'], algorithms=['HS256'])
         return data 

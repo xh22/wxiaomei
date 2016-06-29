@@ -6,6 +6,7 @@ from flask import session, render_template, request, redirect, flash
 from flask_mail import Message
 
 from MySQLdb import IntegrityError
+from jwt import DecodeError 
 
 from main import app, db, mail
 from unity import auth_token 
@@ -17,7 +18,7 @@ class Regist(MethodView):
             flash(u"两次输入密码不一致!")
             return redirect('/regist')
         mail_html = open(os.path.join(app.root_path, 'static/mail/email.html')).read()
-        url = auth_token.Auth_token.generate_auth_token(json.dumps(request.form))
+        url = auth_token.Auth_token.generate_auth_token(request.form)
         msg = Message(u'明天工作室', recipients=[request.form["email"]])
         msg.html = mail_html.replace('{}', url) 
         mail.send(msg)
@@ -27,14 +28,17 @@ class Regist_done(MethodView):
 
     def get(self):
         token = request.args["token"]
-        form = auth_token.Auth_token.verify_auth_token(token)
+        try:
+            form = auth_token.Auth_token.verify_auth_token(token)
+        except DecodeError:
+            flash(u"注册信息已过期!")
+            return redirect('/regist')
         if form:
-            form = json.loads(form)
             cur = db.connection.cursor()
             try:
                 cur.execute("""insert into user_info (name, phone, email, password, address)
-                    values("{}", "{}", "{}", "{}", "{}");""".format(form['name'], form['phone'],
-                    form['email'], form['password'], form['address']))
+                    values("{}", "{}", "{}", "{}", "{}");""".format(form['name'][0], form['phone'][0],
+                    form['email'][0], form['password'][0], form['address'][0]))
             except IntegrityError:
                 flash(u"用户已存在!")
                 return redirect('/regist')
