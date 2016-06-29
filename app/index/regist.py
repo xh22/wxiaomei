@@ -36,7 +36,8 @@ class Regist_done(MethodView):
             session['logged_in'] = True
             session['email'] = form['email']
             session['name'] = form['name']
-            return redirect('/')
+            flash(u"注册成功!")
+        return redirect('/')
 
 class Forget_password(MethodView):
 
