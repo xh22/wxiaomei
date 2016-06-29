@@ -19,11 +19,11 @@ CREATE TABLE `product_type` (
 CREATE TABLE `user_info` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `name` char(20) NOT NULL DEFAULT '',
-  `phone` int(11) NOT NULL,
+  `phone` int(11) DEFAULT NULL,
   `address` char(50) DEFAULT NULL,
   `password` char(20) NOT NULL DEFAULT '',
-  `email` char(20) DEFAULT '',
+  `email` char(20) NOT NULL DEFAULT '',
   `create_time` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`id`),
   UNIQUE KEY `email` (`email`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
