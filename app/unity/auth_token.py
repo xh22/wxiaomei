@@ -6,8 +6,6 @@ class Auth_token():
 
     @staticmethod
     def generate_auth_token(info):
-        print info
-        print type(info)
         info = dict(info)
         token = jwt.encode(info, app.config['SECRET_KEY'], algorithm='HS256')
         return token 
