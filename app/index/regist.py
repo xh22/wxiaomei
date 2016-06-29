@@ -44,8 +44,8 @@ class Regist_done(MethodView):
                 return redirect('/regist')
             db.connection.commit()
             session['logged_in'] = True
-            session['email'] = form['email']
-            session['name'] = form['name']
+            session['email'] = form['email'][0]
+            session['name'] = form['name'][0]
         return redirect('/')
 
 class Forget_password(MethodView):
