@@ -3,5 +3,5 @@
 <pythonpath>/root/wxiaomei/app/</pythonpath>
 <module>runserver</module>
 <processes>1</processes>
-<threads>10</threads>
+<threads>20</threads>
 </uwsgi>
