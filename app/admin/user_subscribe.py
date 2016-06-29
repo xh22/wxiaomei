@@ -11,8 +11,15 @@ class Admin_user_subscribe(MethodView):
     def get(self):
         length = request.args["length"]
         start = request.args["start"]
+        search = request.args['search[value]']
         cur = db.connection.cursor()
-        cur.execute("""select title, email, type, FROM_UNIXTIME(start, '%Y-%m-%d--%T' ), 
+        if search:
+            cur.execute("""select title, email, type, FROM_UNIXTIME(start, '%Y-%m-%d--%T' ), 
+                       FROM_UNIXTIME(end, '%Y-%m-%d--%T' ), create_time from subscribe_calendar 
+                       where title='{2}' order by create_time desc
+                       limit {0}, {1}""".format(start, length, search))
+        else:
+            cur.execute("""select title, email, type, FROM_UNIXTIME(start, '%Y-%m-%d--%T' ), 
                        FROM_UNIXTIME(end, '%Y-%m-%d--%T' ),
                        create_time from subscribe_calendar order by create_time desc
                        limit {}, {}""".format(start, length))
