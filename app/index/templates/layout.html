@@ -239,10 +239,9 @@
         <ul>
             <li><a class="all-demos-link" target="_blank" href="../demo.html">Main Demo Page</a></li>
             {% if g.logged_in -%}
-            <li><a href="{{ url_for('logout') }}">Logout</a></li>
-            {% else -%}
-            <li><a href="{{ url_for('login') }}">Login</a></li>
+            <li><a href="{{ url_for('logout') }}">登出</a></li>
             {% endif %}
+            <li><a href="/regist">新用户注册</a></li>
             <li><a href="faq-1.html">FAQ</a></li>
         </ul>
     </section>
@@ -278,6 +277,11 @@
                 <!-- Navbar Navigation -->
                 <div class="nav-menu">
                     <ul class="nav-menu-inner">
+                        {% if g.logged_in -%}
+                        <li>
+                            <a class="">{{g.name}} 已登录</a>
+                        </li>
+                        {% endif %}
                         <li>
                             <a class="" href="/">主页</a>
                         </li>
@@ -306,6 +310,21 @@
             </div>
         </header>
         <!-- END HEADER -->
+        <section class="copyright pb-60">
+            <div class="container">
+                <div class="row text-center">
+                    <div class="col-md-8 col-md-offset-2">
+                          {% with flashes = get_flashed_messages() %}
+                          {% if flashes %}
+                              {% for f in flashes %}
+                              <h2 class="h2">{{ f }}</h2>
+                              {% endfor %}
+                          {% endif %}
+                          {% endwith %}
+                    </div>
+                </div>
+            </div>
+        </section>
 
         {% block body %}{% endblock %}
 

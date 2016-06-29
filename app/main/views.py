@@ -9,6 +9,7 @@ def page_not_found(error):
 @app.before_request
 def before_request():
     g.logged_in = bool(session.get('logged_in'))
+    g.name = session.get('name')
     if request.path.startswith("/admin"):
         if not session.get('logged_in', None) or session.get('email', None) != app.config['ADMIN_EMAIL']:
             return redirect('/')
