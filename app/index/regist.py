@@ -5,6 +5,8 @@ from flask.views import MethodView
 from flask import session, render_template, request, redirect, flash
 from flask_mail import Message
 
+from MySQLdb import IntegrityError
+
 from main import app, db, mail
 from unity import auth_token 
 
@@ -29,14 +31,17 @@ class Regist_done(MethodView):
         if form:
             form = json.loads(form)
             cur = db.connection.cursor()
-            cur.execute("""insert into user_info (name, phone, email,  password, address)
-                values("{}", "{}", "{}", "{}", "{}");""".format(form['name'], form['phone'],
-                form['email'], form['password'], form['address']))
+            try:
+                cur.execute("""insert into user_info (name, phone, email, password, address)
+                    values("{}", "{}", "{}", "{}", "{}");""".format(form['name'], form['phone'],
+                    form['email'], form['password'], form['address']))
+            except IntegrityError:
+                flash(u"用户已存在!")
+                return redirect('/regist')
             db.connection.commit()
             session['logged_in'] = True
             session['email'] = form['email']
             session['name'] = form['name']
-            flash(u"注册成功!")
         return redirect('/')
 
 class Forget_password(MethodView):
