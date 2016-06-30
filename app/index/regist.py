@@ -59,7 +59,12 @@ class Forget_password(MethodView):
             msg = Message(u'明天工作室', recipients=[request.form["email"]])
             msg.html = mail_html.replace('{}', password[0]) 
             mail.send(msg)
-        return redirect('/')
+            flash(u"密码已发送到您的邮箱!")
+            return redirect('/forget_password')
+        else:
+            flash(u"用户不存在!")
+            return redirect('/forget_password')
+            
 
 app.add_url_rule('/regist', view_func=Regist.as_view('regist'))
 app.add_url_rule('/regist/done', view_func=Regist_done.as_view('regist_done'))

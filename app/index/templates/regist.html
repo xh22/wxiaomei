@@ -1,6 +1,22 @@
 ﻿{% extends "layout.html" %}
 {% block body %}
+        <link rel="stylesheet" type="text/css" href="/static/css/slideunlock.css">
         <!-- Login Section -->
+        <section class="copyright pb-60">
+            <div class="container">
+                <div class="row text-center">
+                    <div class="col-md-8 col-md-offset-2">
+                          {% with flashes = get_flashed_messages() %}
+                          {% if flashes %}
+                              {% for f in flashes %}
+                              <h2 class="h2">{{ f }}</h2>
+                              {% endfor %}
+                          {% endif %}
+                          {% endwith %}
+                    </div>
+                </div>
+            </div>
+        </section>
         <section id="Pricing" class="ptb ptb-sm-80">
             <div class="container">
                 <div class="row">
@@ -19,7 +35,7 @@
                                         </div>
                                         <div class="form-field-wrapper">
                                             <label for="signup-email">所在地址</label>
-                                            <input type="text" required="" placeholder="Enter your address" name="address" id="address" class="input-sm form-full" aria-required="true">
+                                            <input type="text" placeholder="Enter your address" name="address" id="address" class="input-sm form-full" aria-required="true">
                                         </div>
                                         <div class="form-field-wrapper">
                                             <label for="signup-email">邮箱地址</label>
@@ -27,7 +43,7 @@
                                         </div>
                                         <div class="form-field-wrapper">
                                             <label for="login-email">手机号码</label>
-                                            <input type="phone" required="" placeholder="Enter your phone no." name="phone" id="phone" class="input-sm form-full" aria-required="true">
+                                            <input type="phone" placeholder="Enter your phone no." name="phone" id="phone" class="input-sm form-full" aria-required="true">
                                         </div>
                                         <div class="form-field-wrapper">
                                             <label for="signup-pass">密码</label>
@@ -37,7 +53,16 @@
                                             <label for="signup-pass">再次输入密码</label>
                                             <input type="password" required="" placeholder="Enter Re-enter Password" name="repassword" id="repassword" class="input-sm form-full" aria-required="true">
                                         </div>
-                                        <button name="submit" id="form-submit" type="submit" class="btn btn-md btn-black">Signup Now</button>
+
+                                        <div class="slideunlock-wrapper">
+                                            <input type="hidden" value="" class="slideunlock-lockable"/>
+                                            <div class="slideunlock-slider">
+                                                <span class="slideunlock-label"></span>
+                                                <span class="slideunlock-lable-tip">滑动验证!</span>
+                                            </div>
+                                        </div>
+                                        </br>
+                                        <button name="submit" id="regist-submit" type="submit" class="btn btn-md btn-black">注册</button>
                                     </form>
                                 </div>
                             </div>
@@ -50,4 +75,7 @@
             </div>
         </section>
         <!-- End Login Section -->
+        <script type="text/javascript" src="/static/js/jquery-1.11.2.min.js"></script>
+        <script type="text/javascript" src="/static/js/jquery.slideunlock.js"></script>
+        <script type="text/javascript" src="/static/js/slideunlock.js"></script>
 {% endblock %}

@@ -310,21 +310,6 @@
             </div>
         </header>
         <!-- END HEADER -->
-        <section class="copyright pb-60">
-            <div class="container">
-                <div class="row text-center">
-                    <div class="col-md-8 col-md-offset-2">
-                          {% with flashes = get_flashed_messages() %}
-                          {% if flashes %}
-                              {% for f in flashes %}
-                              <h2 class="h2">{{ f }}</h2>
-                              {% endfor %}
-                          {% endif %}
-                          {% endwith %}
-                    </div>
-                </div>
-            </div>
-        </section>
 
         {% block body %}{% endblock %}
 
