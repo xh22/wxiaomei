@@ -237,7 +237,6 @@
         </div>
         </form>
         <ul>
-            <li><a class="all-demos-link" target="_blank" href="../demo.html">Main Demo Page</a></li>
             {% if g.logged_in -%}
             <li><a href="{{ url_for('logout') }}">登出</a></li>
             {% endif %}
@@ -372,6 +371,10 @@
 <!--<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?sensor=false"></script> -->
     <script type="text/javascript" src="/static/js/map.js"></script>
 
+    <script src='/static/js/moment.min.js'></script>
+    <script src='/static/js/fullcalendar.min.js'></script>
+    <script src='/static/js/zh-cn.js'></script>
+    <script src='/static/js/calendar.js'></script>
 
     <script type="text/javascript">
         //  Onepage Nav Elements

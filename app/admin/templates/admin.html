@@ -238,13 +238,11 @@
         </div>
         </form>
         <ul>
-            <li><a class="all-demos-link" target="_blank" href="../demo.html">Main Demo Page</a></li>
             {% if g.logged_in -%}
-            <li><a href="{{ url_for('logout') }}">Logout</a></li>
+            <li><a href="{{ url_for('logout') }}">登出</a></li>
             {% else -%}
-            <li><a href="{{ url_for('login') }}">Login</a></li>
+            <li><a href="{{ url_for('login') }}">登录</a></li>
             {% endif %}
-            <li><a href="faq-1.html">FAQ</a></li>
         </ul>
     </section>
     <!--End Sidemenu -->
