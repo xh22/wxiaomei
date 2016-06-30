@@ -22,6 +22,7 @@ class Regist(MethodView):
         msg = Message(u'明天工作室', recipients=[request.form["email"]])
         msg.html = mail_html.replace('{}', url) 
         mail.send(msg)
+        flash(u"已发送验证链接到您的邮箱,请登录您的邮箱完成注册!")
         return redirect('/regist')
 
 class Regist_done(MethodView):
