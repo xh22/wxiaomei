@@ -80,7 +80,7 @@ class Forget_password(MethodView):
 class Reset_password(MethodView):
 
     def get(self):
-        if session['email']:
+        if session.get('email', None):
             return render_template('reset_password.html')
         token = request.args["token"]
         try:
@@ -96,14 +96,14 @@ class Reset_password(MethodView):
         if request.form["repassword"] != request.form["password"]:
             flash(u"两次输入密码不一致!")
             return redirect('/password/reset')
+        cur = db.connection.cursor()
         cur.execute("""update user_info set password="{}" where email="{}";""".format(
             request.form['password'], session["email"]))
-        db.connection.commit()
         cur.execute("""select name from user_info where email="{}";""".format(session['email']))
         name = cur.fetchone()
+        db.connection.commit()
         session['logged_in'] = True
         session['name'] = name[0]
-        session['email'] = request.form['email']
         return redirect('/')
 
 app.add_url_rule('/regist', view_func=Regist.as_view('regist'))
