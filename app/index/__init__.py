@@ -1,1 +1,1 @@
-import views, regist, login, logout, subscribe
+import views, regist, login, logout, subscribe, verify

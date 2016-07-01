@@ -16,6 +16,8 @@ class Regist(MethodView):
     def post(self):
         if request.form["repassword"] != request.form["password"]:
             flash(u"两次输入密码不一致!")
+        elif request.form["verify_code"] != session["verify_code"]:
+            flash(u"验证码错误!")
             return redirect('/regist')
         mail_html = open(os.path.join(app.root_path, 'static/mail/email.html')).read()
         url = auth_token.Auth_token.generate_auth_token(request.form)
@@ -52,6 +54,9 @@ class Regist_done(MethodView):
 class Forget_password(MethodView):
 
     def post(self):
+        if request.form["verify_code"] != session["verify_code"]:
+            flash(u"验证码错误!")
+            return redirect('/forget_password')
         cur = db.connection.cursor()
         cur.execute("""select password from user_info where email="{}";""".format(request.form['email']))
         password = cur.fetchone()

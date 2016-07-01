@@ -1,6 +1,5 @@
 ﻿{% extends "layout.html" %}
 {% block body %}
-        <link rel="stylesheet" type="text/css" href="/static/css/slideunlock.css">
         <!-- Login Section -->
         <section class="copyright pb-60">
             <div class="container">
@@ -53,14 +52,12 @@
                                             <label for="signup-pass">再次输入密码</label>
                                             <input type="password" required="" placeholder="Enter Re-enter Password" name="repassword" id="repassword" class="input-sm form-full" aria-required="true">
                                         </div>
-
-                                        <div class="slideunlock-wrapper">
-                                            <input type="hidden" value="" class="slideunlock-lockable"/>
-                                            <div class="slideunlock-slider">
-                                                <span class="slideunlock-label"></span>
-                                                <span class="slideunlock-lable-tip">滑动验证!</span>
-                                            </div>
+                                        <div class="form-field-wrapper">
+                                            <label for="signup-pass">请输入验证码</label>
+                                            <input type="" required="" placeholder="" name="verify_code" id="verify_code" class="input-sm form-full" aria-required="true">
+                                            <img class="" src="/verify" alt="Mazel" />
                                         </div>
+
                                         </br>
                                         <button name="submit" id="regist-submit" type="submit" class="btn btn-md btn-black">注册</button>
                                     </form>
@@ -75,7 +72,4 @@
             </div>
         </section>
         <!-- End Login Section -->
-        <script type="text/javascript" src="/static/js/jquery-1.11.2.min.js"></script>
-        <script type="text/javascript" src="/static/js/jquery.slideunlock.js"></script>
-        <script type="text/javascript" src="/static/js/slideunlock.js"></script>
 {% endblock %}
