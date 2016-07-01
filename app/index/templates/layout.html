@@ -239,9 +239,10 @@
         <ul>
             {% if g.logged_in -%}
             <li><a href="{{ url_for('logout') }}">登出</a></li>
+            {% elif -%}
+            <li><a href="/password/forget">找回密码</a></li>
             {% endif %}
             <li><a href="/regist">新用户注册</a></li>
-            <li><a href="/password/forget">找回密码</a></li>
         </ul>
     </section>
     <!--End Sidemenu -->
