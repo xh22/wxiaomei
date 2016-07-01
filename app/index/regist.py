@@ -16,10 +16,11 @@ class Regist(MethodView):
     def post(self):
         if request.form["repassword"] != request.form["password"]:
             flash(u"两次输入密码不一致!")
+            return redirect('/regist')
         elif request.form["verify_code"] != session["verify_code"]:
             flash(u"验证码错误!")
             return redirect('/regist')
-        mail_html = open(os.path.join(app.root_path, 'static/mail/email.html')).read()
+        mail_html = open(os.path.join(app.root_path, 'static/mail/email_regist.html')).read()
         url = auth_token.Auth_token.generate_auth_token(request.form)
         msg = Message(u'明天工作室', recipients=[request.form["email"]])
         msg.html = mail_html.replace('{}', url) 
@@ -51,27 +52,61 @@ class Regist_done(MethodView):
             session['name'] = form['name'][0]
         return redirect('/')
 
+
 class Forget_password(MethodView):
+
+    def get(self):
+        return render_template('forget_password.html')
 
     def post(self):
         if request.form["verify_code"] != session["verify_code"]:
             flash(u"验证码错误!")
-            return redirect('/forget_password')
+            return redirect('/password/forget')
         cur = db.connection.cursor()
-        cur.execute("""select password from user_info where email="{}";""".format(request.form['email']))
-        password = cur.fetchone()
-        if password:
+        cur.execute("""select email from user_info where email="{}";""".format(request.form['email']))
+        email = cur.fetchone()
+        if email:
             mail_html = open(os.path.join(app.root_path, 'static/mail/email_password.html')).read()
             msg = Message(u'明天工作室', recipients=[request.form["email"]])
-            msg.html = mail_html.replace('{}', password[0]) 
+            url = auth_token.Auth_token.generate_auth_token({"email": email[0]})
+            msg.html = mail_html.replace('{}', url) 
             mail.send(msg)
-            flash(u"密码已发送到您的邮箱!")
-            return redirect('/forget_password')
+            flash(u"请登录您的邮箱获取重置链接!")
+            return redirect('/password/forget')
         else:
             flash(u"用户不存在!")
-            return redirect('/forget_password')
-            
+            return redirect('/password/forget')
+
+class Reset_password(MethodView):
+
+    def get(self):
+        if session['email']:
+            return render_template('reset_password.html')
+        token = request.args["token"]
+        try:
+            form = auth_token.Auth_token.verify_auth_token(token)
+        except DecodeError as e:
+            flash(u"密码重置失败")
+            return redirect('/password/forget')
+        
+        session['email'] = form['email']
+        return render_template('reset_password.html')
+
+    def post(self):
+        if request.form["repassword"] != request.form["password"]:
+            flash(u"两次输入密码不一致!")
+            return redirect('/password/reset')
+        cur.execute("""update user_info set password="{}" where email="{}";""".format(
+            request.form['password'], session["email"]))
+        db.connection.commit()
+        cur.execute("""select name from user_info where email="{}";""".format(session['email']))
+        name = cur.fetchone()
+        session['logged_in'] = True
+        session['name'] = name[0]
+        session['email'] = request.form['email']
+        return redirect('/')
 
 app.add_url_rule('/regist', view_func=Regist.as_view('regist'))
 app.add_url_rule('/regist/done', view_func=Regist_done.as_view('regist_done'))
-app.add_url_rule('/forget_password', view_func=Forget_password.as_view('forget_password'))
+app.add_url_rule('/password/forget', view_func=Forget_password.as_view('forget_password'))
+app.add_url_rule('/password/reset', view_func=Reset_password.as_view('reset_password'))

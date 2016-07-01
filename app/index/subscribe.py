@@ -2,7 +2,7 @@
 import os, json
 
 from flask.views import MethodView
-from flask import session, render_template, request, redirect
+from flask import session, render_template, request, redirect, flash
 
 from main import app, db
 
@@ -37,9 +37,11 @@ class Subscribe_login(MethodView):
         cur.execute("""select name,password from user_info where email="{}";""".format(request.form['email']))
         psw = cur.fetchone()
         if not psw:
-            error = u'没有此用户'
+            flash(u'没有此用户')
+            return redirect('/subscribe/0')            
         elif request.form['password'] != psw[1]:
-            error = u'密码错误'
+            flash(u'密码错误')
+            return redirect('/subscribe/0')            
         else:
             session['logged_in'] = True
             session['email'] = request.form['email']
