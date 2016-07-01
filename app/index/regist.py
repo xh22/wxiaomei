@@ -31,7 +31,9 @@ class Regist(MethodView):
 class Regist_done(MethodView):
 
     def get(self):
-        token = request.args["token"]
+        token = request.args.get("token", None)
+        if not token:
+            return redirect('/regist')
         try:
             form = auth_token.Auth_token.verify_auth_token(token)
         except DecodeError as e:
@@ -82,7 +84,9 @@ class Reset_password(MethodView):
     def get(self):
         if session.get('email', None):
             return render_template('reset_password.html')
-        token = request.args["token"]
+        token = request.args.get("token", None)
+        if not token:
+            return redirect('/password/forget')
         try:
             form = auth_token.Auth_token.verify_auth_token(token)
         except DecodeError as e:
