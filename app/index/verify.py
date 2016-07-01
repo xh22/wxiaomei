@@ -10,7 +10,7 @@ from unity import verify_code
 
 class Verify(MethodView):
 
-    def get(self):
+    def get(self, arg):
         code, img = verify_code.get_verify_pic()
         session["verify_code"] = code
         buf = StringIO.StringIO()
@@ -20,4 +20,4 @@ class Verify(MethodView):
         response.headers['Content-Type'] = 'image/png'
         return response
 
-app.add_url_rule('/verify', view_func=Verify.as_view('verify'))
+app.add_url_rule('/verify/<int:arg>', view_func=Verify.as_view('verify'))

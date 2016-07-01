@@ -378,6 +378,19 @@
 
     <script type="text/javascript">
         //  Onepage Nav Elements
+        $(document).ready(function() {
+            $('.verify').attr('src', '/verify' + '/' + new Date().getTime());
+        });
+        $('.verify').click(function() {
+            var imgSrc = $(this).attr('src');
+            var c = imgSrc.lastIndexOf('/');
+             
+            if (c > 0) {
+                imgSrc = imgSrc.substring(0, c);
+            }
+             
+            $(this).attr('src', imgSrc + '/' + new Date().getTime());
+        });
         $('.singlepage-nav').singlePageNav({
             offset: 0,
             filter: ':not(.external)',
