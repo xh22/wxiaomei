@@ -15,6 +15,9 @@
             timezone: 'UTC',
             defaultView:'agendaDay',
 			selectable: true,
+            selectOverlap: false,
+            eventStartEditable: false,
+            eventDurationEditable: false,
 			selectHelper: true,
 			select: function(start, end) {
 				var title = confirm("是否预约此时间段?");
@@ -24,6 +27,10 @@
 						start: start,
 						end: end
 					};
+                    if ((end-start) > 7200000){
+                        alert("预约时间不能超过两个小时");
+                        return false
+                    };
                     $.ajax({
                         type: 'POST',
                         url: '/subscribe/calendar',
