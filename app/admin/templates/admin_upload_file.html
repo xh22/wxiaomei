@@ -9,9 +9,9 @@
         {% with flashes = get_flashed_messages() %}
         {% if flashes %}
             {% for f in flashes %}
-        <div class="panel panel-primary">
-            <h4 class="h2">{{ f }}</h4>
-        </div>
+                <div class="panel panel-primary">
+                    <h4 class="h2 text-center">{{ f }}</h4>
+                </div>
             {% endfor %}
         {% endif %}
         {% endwith %}
@@ -41,16 +41,6 @@
 <section class="gray-bg ptb ptb-sm-80">
     <div class="container">
         <div class="row title">
-        {% with flashes = get_flashed_messages() %}
-        {% if flashes %}
-            {% for f in flashes %}
-        <div class="panel panel-primary">
-            <h4 class="h2">{{ f }}</h4>
-        </div>
-            {% endfor %}
-        {% endif %}
-        {% endwith %}
-
         <div class="panel panel-default">
             <div class="panel-heading">
                <h3 class="panel-title">上传视频</h3>
@@ -64,7 +54,7 @@
             </form>
             <form action="{{ url_for('upload_file') }}" method=POST enctype=multipart/form-data>
                 <table class="table">
-                    <tr><td><input type="file" class="btn btn-md btn-color-r" name="video-pic" data-filename-placement="inside" title="选择视频封面"/></td><td><input type="submit" class="btn btn-md btn-color-b" value="POST" /></tr>
+                    <tr><td><input type="file" class="btn btn-md btn-color-r" name="videopic" data-filename-placement="inside" title="选择视频封面"/></td><td><input type="submit" class="btn btn-md btn-color-b" value="POST" /></tr>
                 </table>
             </form>
         </div>

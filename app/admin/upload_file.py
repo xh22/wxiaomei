@@ -41,7 +41,7 @@ class Uplaod_file(MethodView):
             self.save(photosport, 'photoport', 'UPLOADED_PHOTOSPORT_DEST')
         elif 'video' in request.files:
             self.save(videos, 'video', 'UPLOADED_VIDEOS_DEST')
-        elif 'video-pic' in request.files:
+        elif 'videopic' in request.files:
             self.save(videopic, 'videopic', 'UPLOADED_VIDEOPIC_DEST')
         return redirect('/admin/upload_file')
 
