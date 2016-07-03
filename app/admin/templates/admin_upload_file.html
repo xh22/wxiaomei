@@ -3,69 +3,73 @@
 {% block title %}Index{% endblock title %}
 
 {% block body %}
-<section class="inner-intro">
+<section class="gray-bg ptb ptb-sm-80">
     <div class="container">
-        <h2 class="h4">图片</h2>
         <div class="row title">
         {% with flashes = get_flashed_messages() %}
         {% if flashes %}
             {% for f in flashes %}
-            <h6 class="h2">{{ f }}</h6>
+        <div class="panel panel-primary">
+            <h4 class="h2">{{ f }}</h4>
+        </div>
             {% endfor %}
         {% endif %}
         {% endwith %}
-        <div class="panel panel-success">
-        <div class="panel-body">
+
+        <div class="panel panel-default">
+            <div class="panel-heading">
+               <h3 class="panel-title">上传照片</h3>
+            </div>
+            <div class="panel-body">
+            </div>
             <form action="{{ url_for('upload_file') }}" method=POST enctype=multipart/form-data>
-                <div>
-                <input type="file" class="btn btn-md btn-color-r" name="photocert" data-filename-placement="inside" title="选择证件照"/>
-                </div>
-                <div>
-                <input type="submit" class="btn btn-md btn-color-b" value="POST" />
-                </div>
+                <table class="table">
+                    <tr><td><input type="file" class="btn btn-md btn-color-r" name="photoport" data-filename-placement="inside" title="选择写真照"/></td><td><input type="submit" class="btn btn-md btn-color-b" value="POST" /></tr>
+                </table>
+            </form>
+            <form action="{{ url_for('upload_file') }}" method=POST enctype=multipart/form-data>
+                <table class="table">
+                    <tr><td><input type="file" class="btn btn-md btn-color-r" name="photocert" data-filename-placement="inside" title="选择证件照"/></td><td><input type="submit" class="btn btn-md btn-color-b" value="POST" /></tr>
+                </table>
             </form>
         </div>
-        </div>
-        <div class="panel panel-success">
-        <div class="panel-body">
-            <form action="{{ url_for('upload_file') }}" method=POST enctype=multipart/form-data>
-                <div>
-                <input type="file" class="btn btn-md btn-color-r" name="photoport" data-filename-placement="inside" title="选择写真图片"/>
-                </div>
-                <div>
-                <input type="submit" class="btn btn-md btn-color-b" value="POST" />
-                </div>
-            </form>
-        </div>
-        </div>
-        </div>
-    </div>
-</section>
-<section class="inner-intro">
-    <div class="container">
-        <h2 class="h4">视频</h2>
-        <div class="row title">
-        {% with flashes = get_flashed_messages() %}
-        {% if flashes %}
-            {% for f in flashes %}
-            <h6 class="h2">{{ f }}</h6>
-            {% endfor %}
-        {% endif %}
-        {% endwith %}
-        <div class="panel panel-success">
-        <div class="panel-body">
-            <form action="{{ url_for('upload_file') }}" method=POST enctype=multipart/form-data>
-                <div>
-                <input type="file" class="btn btn-md btn-color-r" name="video" data-filename-placement="inside" title="选择视频"/>
-                </div>
-                <div>
-                <input type="submit" class="btn btn-md btn-color-b" value="POST" />
-                </div>
-            </form>
-        </div>
-        </div>
+
         </div>
     </div>
 </section>
 
+<section class="gray-bg ptb ptb-sm-80">
+    <div class="container">
+        <div class="row title">
+        {% with flashes = get_flashed_messages() %}
+        {% if flashes %}
+            {% for f in flashes %}
+        <div class="panel panel-primary">
+            <h4 class="h2">{{ f }}</h4>
+        </div>
+            {% endfor %}
+        {% endif %}
+        {% endwith %}
+
+        <div class="panel panel-default">
+            <div class="panel-heading">
+               <h3 class="panel-title">上传视频</h3>
+            </div>
+            <div class="panel-body">
+            </div>
+            <form action="{{ url_for('upload_file') }}" method=POST enctype=multipart/form-data>
+                <table class="table">
+                    <tr><td><input type="file" class="btn btn-md btn-color-r" name="video" data-filename-placement="inside" title="选择视频"/></td><td><input type="submit" class="btn btn-md btn-color-b" value="POST" /></tr>
+                </table>
+            </form>
+            <form action="{{ url_for('upload_file') }}" method=POST enctype=multipart/form-data>
+                <table class="table">
+                    <tr><td><input type="file" class="btn btn-md btn-color-r" name="video-pic" data-filename-placement="inside" title="选择视频封面"/></td><td><input type="submit" class="btn btn-md btn-color-b" value="POST" /></tr>
+                </table>
+            </form>
+        </div>
+
+        </div>
+    </div>
+</section>
 {% endblock body %}

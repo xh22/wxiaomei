@@ -18,6 +18,9 @@ configure_uploads(app, photosport)
 videos = UploadSet('videos', AUDIO)
 configure_uploads(app, videos)
 
+videopic = UploadSet('videopic', IMAGES)
+configure_uploads(app, videopic)
+
 class Uplaod_file(MethodView):
     def save(self, host, name, root):
         try:
@@ -31,12 +34,15 @@ class Uplaod_file(MethodView):
             flash(u"上传成功!")
 
     def post(self):
+        print request.files
         if 'photocert' in request.files:
             self.save(photoscert, 'photocert', 'UPLOADED_PHOTOSCERT_DEST')
         elif 'photoport' in request.files:
             self.save(photosport, 'photoport', 'UPLOADED_PHOTOSPORT_DEST')
         elif 'video' in request.files:
             self.save(videos, 'video', 'UPLOADED_VIDEOS_DEST')
+        elif 'video-pic' in request.files:
+            self.save(videopic, 'videopic', 'UPLOADED_VIDEOPIC_DEST')
         return redirect('/admin/upload_file')
 
 app.add_url_rule('/admin/upload_file', view_func=Uplaod_file.as_view('upload_file'))
