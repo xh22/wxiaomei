@@ -1,8 +1,8 @@
 {% extends "layout1.html" %}
 {% block body %}
-        <script src="http://vjs.zencdn.net/ie8/1.1.0/videojs-ie8.min.js"></script>
-        <script src="http://vjs.zencdn.net/5.0.2/video.js"></script>
-        <link href="http://vjs.zencdn.net/5.0.2/video-js.css" rel="stylesheet">
+        <script src="/static/js/videojs-ie8.min.js"></script>
+        <script src="/static/js/video.js"></script>
+        <link href="/static/css/video-js.css" rel="stylesheet">
 
         <!-- Blog Section -->
         <section id="blog" class="wow fadeIn ptb ptb-sm-80">
@@ -16,7 +16,7 @@
 
             <div class="container">
                 <div class="blog-post text-center">
-                    <video id="example_video_1" class="video-js vjs-default-skin center-block" controls autoplay preload="auto" width="640" height="264" data-setup="{}">
+                    <video id="example_video_1" class="video-js vjs-default-skin center-block" controls autoplay preload="auto" width="640" height="264" poster="/static/img/video/{{ids}}.jpg" data-setup="{}">
                         <source src="/static/video/{{ids}}.{{types}}" type="video/{{types}}">
                         <p class="vjs-no-js">To view this video please enable JavaScript, and consider upgrading to a web browser that <a href="http://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a></p>
                     </video>
