@@ -1,13 +1,13 @@
 CREATE TABLE `subscribe_calendar` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-  `start` char(20) NOT NULL DEFAULT '',
-  `end` char(20) NOT NULL DEFAULT '',
+  `start` int(20) NOT NULL,
+  `end` int(20) NOT NULL,
   `type` smallint(11) NOT NULL,
-  `email` char(20) NOT NULL DEFAULT '',
-  `title` char(20) DEFAULT NULL,
-  `create_time` TIMESTAMP  NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `title` text,
+  `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  KEY `index_name` (`type`,`start`,`title`)
+) ENGINE=InnoDB AUTO_INCREMENT=4616 DEFAULT CHARSET=utf8;
 
 CREATE TABLE `product_type` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
@@ -19,8 +19,7 @@ CREATE TABLE `product_type` (
 CREATE TABLE `user_info` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `name` char(20) NOT NULL DEFAULT '',
-  `phone` int(11) DEFAULT NULL,
-  `address` char(50) DEFAULT NULL,
+  `phone` int(11) NOT NULL DEFAULT '',
   `password` char(20) NOT NULL DEFAULT '',
   `email` char(20) NOT NULL DEFAULT '',
   `create_time` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,

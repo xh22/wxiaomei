@@ -18,6 +18,25 @@
 {% extends "layout.html" %}
 {% block body %}
 <section id="subscribe2" class="gray-bg ptb ptb-sm-80">
+    <ul class="nav nav-pills nav-justified">
+    <li role="presentation"><a href="/subscribe/1">选择项目</a></li>
+    <li role="presentation" class="active"><a href="/subscribe/2">选择预约时间</a></li>
+    </ul>
+    <br>
+    <div id="subscribewrap" style="display:none">
+      <form id="subscribeform" role="form">
+        <div class="form-group">
+          <label for="phonenum">手机号</label>
+          <input class="form-control"
+           id="phonenum">
+        </div>
+        <div class="form-group">
+          <label for="code">验证码</label>
+          <input class="form-control"
+          id="code">
+        </div>
+      </form>
+    </div>
 	<div id='calendar'></div>
 </section>
 {% endblock %}

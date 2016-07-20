@@ -19,7 +19,7 @@ class Admin_subscribe_calendar(MethodView):
         cur.execute("""select start, end, title from subscribe_calendar where type="{}"
             """.format(session['subscribe_type']))
         info = cur.fetchall()
-        return json.dumps({"success": True, "event": info}) 
+        return json.dumps({"success": True, "event": info, "type": session['subscribe_type']}) 
             
 
 app.add_url_rule('/admin/subscribe/calendar', view_func=Admin_subscribe_calendar.as_view('admin_subscribe_calendar'))

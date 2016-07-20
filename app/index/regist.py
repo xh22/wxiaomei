@@ -42,9 +42,9 @@ class Regist_done(MethodView):
         if form:
             cur = db.connection.cursor()
             try:
-                cur.execute("""insert into user_info (name, phone, email, password, address)
+                cur.execute("""insert into user_info (name, phone, email, password)
                     values("{}", "{}", "{}", "{}", "{}");""".format(form['name'][0], form['phone'][0],
-                    form['email'][0], form['password'][0], form['address'][0]))
+                    form['email'][0], form['password'][0]))
             except IntegrityError:
                 flash(u"用户已存在!")
                 return redirect('/regist')

@@ -1,7 +1,7 @@
     $(document).ready(function() {
 		$('#calendar').fullCalendar({
 
-            minTime: '09:00:00', // a start time (10am in this example)
+            minTime: '10:00:00', // a start time (10am in this example)
             maxTime: '20:00:00', // an end time (6pm in this example)
             slotDuration: "00:20:00",
             allDaySlot: false,
@@ -10,45 +10,91 @@
 				left: 'prev,next today',
 				center: 'title',
 				//right: 'agendaDay,agendaWeek,month',
-				right: 'agendaDay'
+				right: ''
 			},
-            timezone: 'UTC',
-            defaultView:'agendaDay',
-			selectable: true,
+            timezone: 'local',
+            defaultView:'agendaWeek',
             selectOverlap: false,
             eventStartEditable: false,
             eventDurationEditable: false,
-			selectHelper: true,
-			select: function(start, end) {
-				var title = confirm("是否预约此时间段?");
-				var eventData;
-				if (title) {
-					eventData = {
-						start: start,
-						end: end
-					};
-                    if ((end-start) > 7200000){
-                        alert("预约时间不能超过两个小时");
-                        return false
-                    };
-                    $.ajax({
-                        type: 'POST',
-                        url: '/subscribe/calendar',
-                        data: {
-                            // our hypothetical feed requires UNIX timestamps
-                            start: start.unix(),
-                            end: end.unix(),
-                        },
-                        success:function(msg) {  
-					        $('#calendar').fullCalendar('renderEvent', eventData, true); // stick? = true
-                            alert("预约成功!");  
-                        },  
-                        error:function() {  
-                            alert("请稍后再试!");  
-                        },  
+            selectable: false,
+			//select: function(start, end) {
+            eventClick: function(event, jsEvent, view) {        
+                $('#subscribewrap').attr("style", "");            
+                $("#subscribewrap").dialog({
+                    title:    "预约类型:"+event.type+new Date(event.start).toLocaleString()+"--"+new Date(event.end).toLocaleString()
+                  , 'class':  "mydialog"  /*add custom class for this dialog*/
+                  , onClose: function() { $(this).dialog("close"); }
+                  , buttons: [
+                      {
+                          text: "获取验证码"
+                        , 'class': "btn-success"
+                        , click: function() {
+                            /*your login handler*/
+                            if (event.title[event.title.length-1]<1){
+                                alert("预约人数已满，请选择其他时间!")
+                                return false;
+                            };
+                            var reg = /^0?1[3|4|5|8][0-9]\d{8}$/;
+                            if (!reg.test($("#phonenum").val())) {
+                                alert("请填写合法手机号!");
+                                return false;
+                            };
+                            var i=1; 
+                            var t = $(".btn-success");
+                            t.attr('disabled',true); 
+                            var timer=setInterval(function(){t.text((60-i)+"秒后重新获取");i++;
+                            if(i>59){t.attr('disabled',false);i=1;t.text("获取验证码");clearInterval(timer)}},1000) 
 
-                    });
-				}
+                            $.ajax({
+                                type: 'POST',
+                                url: '/verify/msg',
+                                data: {
+                                    // our hypothetical feed requires UNIX timestamps
+							        phonenum: $("#phonenum").val()
+                                },
+                                success:function(msg) {  
+                                    alert("验证码已发送!");  
+                                },  
+                                error:function() {  
+                                    alert("请稍后再试!");  
+                                },  
+                     
+                            });
+                          }
+                      },
+                      {
+                          text: "预约"
+                        , classed: "btn-error"  /*classed equal to 'class'*/
+                        , click: function() {
+                            /*your login handler*/
+                              $.ajax({
+                                  type: 'POST',
+                                  url: '/subscribe/calendar',
+                                  data: {
+                                      // our hypothetical feed requires UNIX timestamps
+                                      start: event.start.unix(),
+                                      end: event.end.unix(),
+							          verifycode: $("#code").val(),
+							          phonenum: $("#phonenum").val()
+                                  },
+                                  success:function(msg) {  
+							          //$('#calendar').fullCalendar('renderEvent', eventData, true); // stick? = true
+                                      alert("预约成功!");  
+                                  },  
+                                  error:function() {  
+                                      alert("验证码错误!");  
+                                  },  
+    
+                              });
+                              $(this).dialog("close");
+                          }
+                      }
+                    ]
+                });
+                
+
+//				var title = confirm("是否预约此时间段?");
 				$('#calendar').fullCalendar('unselect');
 			},
 			editable: true,
@@ -64,9 +110,10 @@
                         doc = JSON.parse(doc),
                         $.each(doc['event'],function(n, value) {
                             events.push({
-                                title: value[2],
-                                start: new Date(value[0]*1000), // will be parsed
-                                end: new Date(value[1]*1000), // will be parsed
+                                title: "剩余名额"+(5-value[2].split(",").length),
+                                start: new Date((value[0])*1000), // will be parsed
+                                end: new Date((value[1])*1000), // will be parsed
+                                type: doc['type'],
                             });
                         });
                         callback(events);

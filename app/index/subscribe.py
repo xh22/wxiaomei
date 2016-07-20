@@ -2,7 +2,7 @@
 import os, json
 
 from flask.views import MethodView
-from flask import session, render_template, request, redirect, flash
+from flask import session, render_template, request, redirect, flash, abort
 
 from main import app, db
 
@@ -19,13 +19,15 @@ class Subscribe_calendar(MethodView):
         cur.execute("""select start, end, title from subscribe_calendar where type="{}"
             """.format(session['subscribe_type']))
         info = cur.fetchall()
-        return json.dumps({"success": True, "event": info}) 
+        return json.dumps({"success": True, "event": info, "type": session['subscribe_type']}) 
 
     def post(self):
+        if request.form['verifycode'] != session.get('verifycode', None):
+            abort(401) 
         cur = db.connection.cursor()
-        cur.execute("""insert into subscribe_calendar(email, start, end, title, type)
-            values("{}", "{}", "{}", "{}", "{}");""".format(session['email'], request.form['start'],
-            request.form['end'], session['name'], session['subscribe_type']))
+        cur.execute("""update subscribe_calendar set title=concat(title,"{2},") where start="{0}"
+            and end="{1}" and type="{3}";""".format(request.form['start'],
+            request.form['end'], request.form['phonenum'], session['subscribe_type']))
         db.connection.commit()
         return json.dumps({"success": True}) 
             
