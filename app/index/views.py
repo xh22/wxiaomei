@@ -37,8 +37,9 @@ def work():
 
 @index_page.route('/subscribe/<int:page>')
 def subscribe(page):
-    if not session.get('subscribe_type', None):
-        return redirect('/subscribe/1')
+    if page != 1:
+        if not session.get('subscribe_type', None):
+            return redirect('/subscribe/1')
     else:
         try:
             return render_template('subscribe/subscribe%s.html' % page)
