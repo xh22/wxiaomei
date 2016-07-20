@@ -18,7 +18,7 @@ def exec_db():
         a=1468944000
         for i in range(0,24*30):
             b=a+3600
-            db.cursor().execute("""insert into subscribe_calendar(email, start, end, title, type) values("admin@qq.com", "{0}", "{1}", "5", "2")""".format(a,b))
+            db.cursor().execute("""insert into subscribe_calendar(start, end, title, type) values("{0}", "{1}", "5", "2")""".format(a,b))
             a=b
         db.commit()
 
@@ -55,7 +55,7 @@ end;
 #show create procedure subscribe
 #drop procedure subscribe
 #
-#init_db()
+init_db()
 exec_db()
-#proc()
-#event()
+proc()
+event()

@@ -40,10 +40,9 @@ def subscribe(page):
     if page != 1:
         if not session.get('subscribe_type', None):
             return redirect('/subscribe/1')
-    else:
-        try:
-            return render_template('subscribe/subscribe%s.html' % page)
-        except TemplateNotFound:
-            abort(404)
+    try:
+        return render_template('subscribe/subscribe%s.html' % page)
+    except TemplateNotFound:
+        abort(404)
 
 app.register_blueprint(index_page)

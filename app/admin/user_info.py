@@ -14,10 +14,10 @@ class Admin_user_info(MethodView):
         search = request.args['search[value]']
         cur = db.connection.cursor()
         if search:
-            cur.execute("""select name, phone, address, password, email,
+            cur.execute("""select name, phone, password, email,
                        create_time from user_info where name='{2}' limit {0}, {1}""".format(start, length, search))
         else:
-            cur.execute("""select name, phone, address, password, email,
+            cur.execute("""select name, phone, password, email,
                        create_time from user_info limit {0}, {1}""".format(start, length))
         info = cur.fetchall()
         info = [[str(j) for j in i] for i in info]
