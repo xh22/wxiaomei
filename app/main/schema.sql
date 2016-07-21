@@ -3,7 +3,7 @@ CREATE TABLE `subscribe_calendar` (
   `start` int(20) NOT NULL,
   `end` int(20) NOT NULL,
   `type` smallint(11) NOT NULL,
-  `title` char(80) NOT NULL,
+  `title` char(180) NOT NULL,
   `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
   KEY `index_name` (`type`,`start`,`title`)
