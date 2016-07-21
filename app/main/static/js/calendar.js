@@ -22,7 +22,7 @@
             eventClick: function(event, jsEvent, view) {        
                 $('#subscribewrap').attr("style", "");            
                 $("#subscribewrap").dialog({
-                    title:    "预约类型:"+event.type+new Date(event.start).toLocaleString()+"--"+new Date(event.end).toLocaleString()
+                    title:    "预约类型:"+event.type+" 预约时间:"+new Date(event.start).toLocaleString()+"--"+new Date(event.end).toLocaleString()
                   , 'class':  "mydialog"  /*add custom class for this dialog*/
                   , onClose: function() { $(this).dialog("close"); }
                   , buttons: [

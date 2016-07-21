@@ -9,7 +9,10 @@ from main import app, db
 class Subscribe_type(MethodView):
 
     def get(self, typer):
-        session['subscribe_type'] = typer
+        cur = db.connection.cursor()
+        cur.execute("""select type,description from product_type;""")
+        info = cur.fetchall()
+        session['subscribe_type'] = dict(info)[typer]
         return redirect('/subscribe/2')
 
 class Subscribe_calendar(MethodView):
@@ -25,9 +28,8 @@ class Subscribe_calendar(MethodView):
         if request.form['verifycode'] != session.get('verifycode', None):
             abort(401) 
         cur = db.connection.cursor()
-        cur.execute("""update subscribe_calendar set title=concat(title,"{2},") where start="{0}"
-            and end="{1}" and type="{3}";""".format(request.form['start'],
-            request.form['end'], request.form['phonenum'], session['subscribe_type']))
+        cur.execute("""update subscribe_calendar set title=concat(title,"{1}-{2},") where start="{0}"
+            ;""".format(request.form['start'], request.form['phonenum'], session['subscribe_type']))
         db.connection.commit()
         return json.dumps({"success": True}) 
             

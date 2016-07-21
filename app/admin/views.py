@@ -17,11 +17,4 @@ def admin(page):
     except TemplateNotFound:
         abort(404)
 
-@admin_page.route('/admin/subscribe/<int:page>')
-def subscribe(page):
-    try:
-        return render_template('admin_subscribe%s.html' % page)
-    except TemplateNotFound:
-        abort(404)
-
 app.register_blueprint(admin_page)

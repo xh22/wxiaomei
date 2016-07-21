@@ -1,9 +1,10 @@
+# -*- coding: utf-8 -*-
 import os
 
 from flask import Blueprint, render_template, abort, session, redirect
 from jinja2 import TemplateNotFound
 
-from main import app
+from main import app, db
 
 index_page = Blueprint('index_page', __name__,
                         template_folder='templates',
@@ -35,13 +36,22 @@ def work():
     imgs3 = os.listdir(os.path.join(app.root_path, 'static/img/portfolio/3'))
     return render_template('work.html', imgs=[imgs0, imgs1, imgs2, imgs3], enumerate=enumerate)
 
-@index_page.route('/subscribe/<int:page>')
-def subscribe(page):
-    if page != 1:
-        if not session.get('subscribe_type', None):
-            return redirect('/subscribe/1')
+@index_page.route('/subscribe/1')
+def subscribe1():
+    cur = db.connection.cursor()
+    cur.execute("""select type,description from product_type;""")
+    info = cur.fetchall()
     try:
-        return render_template('subscribe/subscribe%s.html' % page)
+        return render_template('subscribe/subscribe1.html', info=info)
+    except TemplateNotFound:
+        abort(404)
+
+@index_page.route('/subscribe/2')
+def subscribe2():
+    if not session.get('subscribe_type', None):
+        return redirect('/subscribe/1')
+    try:
+        return render_template('subscribe/subscribe2.html')
     except TemplateNotFound:
         abort(404)
 

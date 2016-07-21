@@ -15,10 +15,10 @@ def init_db():
 
 def exec_db():
     with closing(connect_db()) as db:
-        a=1468944000
+        a=1469116800
         for i in range(0,24*31):
             b=a+3600
-            db.cursor().execute("""insert into subscribe_calendar(start, end, title, type) values("{0}", "{1}", "5", "0")""".format(a,b))
+            db.cursor().execute("""insert into subscribe_calendar(start, end, title, type) values("{0}", "{1}", "-", "0")""".format(a,b))
             a=b
         db.commit()
 
@@ -41,7 +41,7 @@ declare i int;
 set i=0;
 while i<24 do
     insert into subscribe_calendar(start, end, title, type) values(
-    unix_timestamp(now())+3600*24*30+3600*i, unix_timestamp(now())+3600*24*30+3600*(i+1), "", "0");
+    unix_timestamp(now())+3600*24*29+3600*i, unix_timestamp(now())+3600*24*29+3600*(i+1), "", "0");
     set i=i+1;
 end while;
 delete from subscribe_calendar where SYSDATE()>FROM_UNIXTIME(end);
@@ -55,7 +55,7 @@ end;
 #show create procedure subscribe
 #drop procedure subscribe
 #
-#init_db()
-#exec_db()
+init_db()
+exec_db()
 proc()
-#event()
+event()

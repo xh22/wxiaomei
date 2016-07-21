@@ -21,7 +21,7 @@ class Admin_user_subscribe(MethodView):
         else:
             cur.execute("""select title, type, FROM_UNIXTIME(start, '%Y-%m-%d--%T' ), 
                        FROM_UNIXTIME(end, '%Y-%m-%d--%T' ),
-                       create_time from subscribe_calendar order by end
+                       create_time from subscribe_calendar where LENGTH(title)>1 order by end
                        limit {}, {}""".format(start, length))
         info = cur.fetchall()
         info = [[str(j) for j in i] for i in info]
