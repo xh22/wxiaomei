@@ -5,7 +5,7 @@ from contextlib import closing
 from main import app
 
 def connect_db():
-    return MySQLdb.connect(host='localhost', user='root', passwd='qaz123', db='users', port=3306)
+    return MySQLdb.connect(host='localhost', user='root', passwd='', db='users', port=3306)
 
 def init_db():
     with closing(connect_db()) as db:
@@ -16,9 +16,9 @@ def init_db():
 def exec_db():
     with closing(connect_db()) as db:
         a=1468944000
-        for i in range(0,24*30):
+        for i in range(0,24*31):
             b=a+3600
-            db.cursor().execute("""insert into subscribe_calendar(start, end, title, type) values("{0}", "{1}", "5", "2")""".format(a,b))
+            db.cursor().execute("""insert into subscribe_calendar(start, end, title, type) values("{0}", "{1}", "5", "0")""".format(a,b))
             a=b
         db.commit()
 
@@ -40,8 +40,8 @@ begin
 declare i int;
 set i=0;
 while i<24 do
-    insert into subscribe_calendar(email, start, end, title, type) values(
-    "admin@qq.com", unix_timestamp(now())+3600*24*30+3600*i, unix_timestamp(now())+3600*24*30+3600*(i+1), "", "2");
+    insert into subscribe_calendar(start, end, title, type) values(
+    unix_timestamp(now())+3600*24*30+3600*i, unix_timestamp(now())+3600*24*30+3600*(i+1), "", "0");
     set i=i+1;
 end while;
 delete from subscribe_calendar where SYSDATE()>FROM_UNIXTIME(end);
@@ -50,12 +50,12 @@ end;
     with closing(connect_db()) as db:
         db.cursor().execute(sql)
         db.commit()
-#show events
+#select * from mysql.event
 #drop event myevent
 #show create procedure subscribe
 #drop procedure subscribe
 #
-init_db()
-exec_db()
+#init_db()
+#exec_db()
 proc()
-event()
+#event()
