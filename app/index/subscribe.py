@@ -16,8 +16,8 @@ class Subscribe_calendar(MethodView):
 
     def get(self):
         cur = db.connection.cursor()
-        cur.execute("""select start, end, title from subscribe_calendar where type="{}"
-            and end > unix_timestamp(now())""".format(session['subscribe_type']))
+        cur.execute("""select start, end, title from subscribe_calendar where
+            end > unix_timestamp(now())""")
         info = cur.fetchall()
         return json.dumps({"success": True, "event": info, "type": session['subscribe_type']}) 
 
