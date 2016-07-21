@@ -5,7 +5,7 @@ from contextlib import closing
 from main import app
 
 def connect_db():
-    return MySQLdb.connect(host='localhost', user='root', passwd='', db='users', port=3306)
+    return MySQLdb.connect(host='localhost', user='root', passwd='qaz123', db='users', port=3306)
 
 def init_db():
     with closing(connect_db()) as db:
@@ -16,7 +16,7 @@ def init_db():
 def exec_db():
     with closing(connect_db()) as db:
         a=1469116800
-        for i in range(0,24*31):
+        for i in range(0,24*30):
             b=a+3600
             db.cursor().execute("""insert into subscribe_calendar(start, end, title, type) values("{0}", "{1}", "-", "0")""".format(a,b))
             a=b
@@ -54,8 +54,9 @@ end;
 #drop event myevent
 #show create procedure subscribe
 #drop procedure subscribe
-#
-init_db()
+#insert into product_type (type ,description) values(1,"证件照");
+#insert into user_info (name, phone , password ,email) values ("admin", 0 ,123,"admin@qq.com");
+#init_db()
 exec_db()
-proc()
-event()
+#proc()
+#event()
