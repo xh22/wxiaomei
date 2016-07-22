@@ -1,8 +1,8 @@
     $(document).ready(function() {
 		$('#calendar').fullCalendar({
 
-            minTime: '10:00:00', // a start time (10am in this example)
-            maxTime: '20:00:00', // an end time (6pm in this example)
+            minTime: '10:30:00', // a start time (10am in this example)
+            maxTime: '19:00:00', // an end time (6pm in this example)
             slotDuration: "00:10:00",
             allDaySlot: false,
             lang: 'zh-cn',
