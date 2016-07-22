@@ -110,7 +110,7 @@
                         doc = JSON.parse(doc),
                         $.each(doc['event'],function(n, value) {
                             events.push({
-                                title: "剩余名额"+(5-value[2].split(",").length),
+                                title: "余额"+(5-value[2].split(",").length),
                                 start: new Date((value[0])*1000), // will be parsed
                                 end: new Date((value[1])*1000), // will be parsed
                                 type: doc['type'],
