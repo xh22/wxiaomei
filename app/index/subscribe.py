@@ -28,8 +28,9 @@ class Subscribe_calendar(MethodView):
         if request.form['verifycode'] != session.get('verifycode', None):
             abort(401) 
         cur = db.connection.cursor()
-        cur.execute("""update subscribe_calendar set title=concat(title,"{1}-{2},") where start="{0}"
-            ;""".format(request.form['start'], request.form['phonenum'], session['subscribe_type']))
+        cur.execute("""update subscribe_calendar set title=concat(title,"{3}-{1}-{2},") where start="{0}"
+            ;""".format(request.form['start'], request.form['phonenum'], session['subscribe_type'],
+            request.form['name'].encode('utf8')))
         db.connection.commit()
         return json.dumps({"success": True}) 
             

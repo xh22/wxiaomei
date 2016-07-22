@@ -3,7 +3,7 @@
 
             minTime: '10:00:00', // a start time (10am in this example)
             maxTime: '20:00:00', // an end time (6pm in this example)
-            slotDuration: "00:20:00",
+            slotDuration: "00:10:00",
             allDaySlot: false,
             lang: 'zh-cn',
 			header: {
@@ -76,7 +76,8 @@
                                       start: event.start.unix(),
                                       end: event.end.unix(),
 							          verifycode: $("#code").val(),
-							          phonenum: $("#phonenum").val()
+							          phonenum: $("#phonenum").val(),
+							          name: $("#name").val()
                                   },
                                   success:function(msg) {  
 							          //$('#calendar').fullCalendar('renderEvent', eventData, true); // stick? = true
@@ -110,7 +111,7 @@
                         doc = JSON.parse(doc),
                         $.each(doc['event'],function(n, value) {
                             events.push({
-                                title: "余额"+(5-value[2].split(",").length),
+                                title: "余额"+(3-value[2].split(",").length),
                                 start: new Date((value[0])*1000), // will be parsed
                                 end: new Date((value[1])*1000), // will be parsed
                                 type: doc['type'],
