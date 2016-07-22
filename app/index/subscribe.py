@@ -9,12 +9,10 @@ from main import app, db
 class Subscribe_type(MethodView):
 
     def get(self, typer):
-#        cur = db.connection.cursor()
-#        cur.execute("""select type,description from product_type;""")
-#        info = cur.fetchall()
-#        session['subscribe_type'] = dict(info)[typer]
-	types={"1":"证件照", "2":"轻写真", "3":"Happy Face 系列"}
-	session['subscribe_type']=types[str(typer)]
+        cur = db.connection.cursor()
+        cur.execute("""select type,description from product_type;""")
+        info = cur.fetchall()
+        session['subscribe_type'] = dict(info)[typer]
         return redirect('/subscribe/2')
 
 class Subscribe_calendar(MethodView):

@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 import MySQLdb 
 
 from contextlib import closing
@@ -21,6 +22,14 @@ def exec_db():
             db.cursor().execute("""insert into subscribe_calendar(start, end, title, type) values("{0}", "{1}", "-", "0")""".format(a,b))
             a=b
         db.commit()
+
+def insert_db():
+    with closing(connect_db()) as db:
+        db.cursor().execute(""" insert into product_type (type ,description) values(1,"证件照") """)
+        db.cursor().execute(""" insert into product_type (type ,description) values(2,"轻写真") """)
+        db.cursor().execute(""" insert into product_type (type ,description) values(3,"Happy Face 系列") """)
+        db.commit()
+
 
 def event():
     sql="""
@@ -57,6 +66,7 @@ end;
 #insert into product_type (type ,description) values(1,"证件照");
 #insert into user_info (name, phone , password ,email) values ("admin", 0 ,123,"admin@qq.com");
 #init_db()
-exec_db()
+#exec_db()
+insert_db()
 #proc()
 #event()
