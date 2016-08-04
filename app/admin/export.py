@@ -13,7 +13,7 @@ class Export(MethodView):
         cur.execute("""select title, FROM_UNIXTIME(start, '%Y-%m-%d--%T' ), 
                    FROM_UNIXTIME(end, '%Y-%m-%d--%T' )
                    from subscribe_calendar where 
-                   month(FROM_UNIXTIME(start, '%Y-%m-%d--%T' )) >
+                   month(FROM_UNIXTIME(start, '%Y-%m-%d--%T' )) < 
                    month(localtime())""")
         info = cur.fetchall()
         return excel.make_response_from_array(info, "csv")
