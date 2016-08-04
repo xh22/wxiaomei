@@ -17,7 +17,7 @@ class Admin_user_subscribe(MethodView):
             cur.execute("""select title, type, FROM_UNIXTIME(start, '%Y-%m-%d--%T' ), 
                        FROM_UNIXTIME(end, '%Y-%m-%d--%T' ), create_time from subscribe_calendar 
                        where title like '%{2}%' order by end
-                       limit {0}, {1}""".format(start, length, search))
+                       limit {0}, {1}""".format(start, length, search.encode('utf8')))
         else:
             cur.execute("""select title, type, FROM_UNIXTIME(start, '%Y-%m-%d--%T' ), 
                        FROM_UNIXTIME(end, '%Y-%m-%d--%T' ),

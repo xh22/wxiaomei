@@ -53,12 +53,12 @@ while i<48 do
     unix_timestamp(now())+3600*24*29+1800*i, unix_timestamp(now())+3600*24*29+1800*(i+1), "", "0");
     set i=i+1;
 end while;
-delete from subscribe_calendar where SYSDATE()>FROM_UNIXTIME(end);
 end;
 """
     with closing(connect_db()) as db:
         db.cursor().execute(sql)
         db.commit()
+#delete from subscribe_calendar where SYSDATE()>FROM_UNIXTIME(end);
 #select * from mysql.event
 #drop event myevent
 #show create procedure subscribe

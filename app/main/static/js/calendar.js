@@ -1,6 +1,6 @@
     $(document).ready(function() {
 		$('#calendar').fullCalendar({
-
+            hiddenDays: [1],
             minTime: '10:30:00', // a start time (10am in this example)
             maxTime: '19:00:00', // an end time (6pm in this example)
             slotDuration: "00:10:00",
